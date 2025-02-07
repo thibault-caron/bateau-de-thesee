@@ -11,7 +11,7 @@ class Part:
     
 
 class Ship(Part):
-    def __init__(self, name, material, name_ship, parts={}):
+    def __init__(self, name, material, name_ship, parts):
         super().__init__(name, material)
         self.__name_ship = name_ship
         self.__parts = {part.name for part in parts}
@@ -24,3 +24,7 @@ class Ship(Part):
         self.name = part_name
         self.__parts[part_name] = new_part
         return self.__parts
+    
+bateau = Ship("coque", "metal", "bato test", {Part("coque", "metal"), Part("mat", "bois"), Part("voile", "jute")})
+
+bateau.display_state()

@@ -49,6 +49,17 @@ class Ship(Part):
             print(f"Aucune pièce trouvée avec le nom '{part_name}'")
 
 
+class RacingShip(Ship):
+    """classe RacingShip, héritant de Ship"""
+    def __init__(self, name, max_speed):
+        super().__init__(name)
+        self.max_speed = max_speed
+
+    def display_speed(self):
+        """Afficher la vitesse maximale du RacingShip."""
+        print(f"Vitesse maximale du '{self.name}' : {self.max_speed} km/h")
+
+
 if __name__ == "__main__":
     # Création des pièces
     piece1 = Part("Coque", "Bois")
@@ -56,7 +67,7 @@ if __name__ == "__main__":
     piece3 = Part("Voile", "Toile")
 
     # Création du bateau
-    bateau = Ship("Bateau de Thésée")
+    bateau = RacingShip("Bateau de Thésée", "120")
     
     # Ajouter les pièces au bateau
     bateau.add_part(piece1)
@@ -65,14 +76,15 @@ if __name__ == "__main__":
     
     # Afficher l'état du bateau
     bateau.display_state()
+    bateau.display_speed()
     
-    # Remplacer une pièce
-    new_piece = Part("Coque", "Acier")
-    bateau.replace_part("Coque", new_piece)
+    # # Remplacer une pièce
+    # new_piece = Part("Coque", "Acier")
+    # bateau.replace_part("Coque", new_piece)
     
-    # Afficher l'état du bateau après remplacement
-    bateau.display_state()
+    # # Afficher l'état du bateau après remplacement
+    # bateau.display_state()
 
-    # Changer le matériau d'une pièce existante
-    bateau.change_part("Mât", "Acier")
-    bateau.display_state()
+    # # Changer le matériau d'une pièce existante
+    # bateau.change_part("Mât", "Acier")
+    # bateau.display_state()

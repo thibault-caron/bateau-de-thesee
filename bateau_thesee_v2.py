@@ -74,6 +74,49 @@ class RacingShip(Ship):
         print(f"Vitesse maximale du '{self.name}' : {self.max_speed} km/h")
 
 
+def show_menu():
+    """Fonction pour afficher le menu"""
+    print("\n--- Menu ---")
+    print("1. Ajouter une pièce")
+    print("2. Remplacer une pièce")
+    print("3. Modifier le matériau d'une pièce")
+    print("4. Afficher l'état du bateau")
+    print("5. Afficher l'historique des modifications")
+    print("6. Quitter")
+
+
+def menu_interactif(bateau):
+    """Fonction pour gérer les choix du menu"""
+    while True: 
+        choice = input("Choisissez une option ('0' pour afficher les options): ")
+        if choice == "0":
+            show_menu()
+        elif choice == "1":
+            part_name = input("Nom de la pièce à ajouter: ")
+            material = input("Matériau de la pièce: ")
+            new_part = Part(part_name, material)
+            bateau.add_part(new_part)
+        elif choice == "2":
+            part_name = input("Nom de la pièce à remplacer: ")
+            new_part_name = input("Nom de la nouvelle pièce: ")
+            new_material = input("Matériau de la nouvelle pièce: ")
+            new_part = Part(new_part_name, new_material)
+            bateau.replace_part(part_name, new_part)
+        elif choice == "3":
+            part_name = input("Nom de la pièce à modifier: ")
+            new_material = input("Nouveau matériau: ")
+            bateau.change_part(part_name, new_material)
+        elif choice == "4":
+            bateau.display_state()
+        elif choice == "5":
+            bateau.display_history()
+        elif choice == "6":
+            print("Quitter le programme.")
+            break
+        else:
+            print("Choix invalide. Veuillez essayer à nouveau.")
+
+
 if __name__ == "__main__":
     # Création des pièces
     piece1 = Part("Coque", "Bois")
@@ -88,19 +131,5 @@ if __name__ == "__main__":
     bateau.add_part(piece2)
     bateau.add_part(piece3)
     
-    # Afficher l'état du bateau
-    bateau.display_state()
-    bateau.display_speed()
-    
-    # Remplacer une pièce
-    new_piece = Part("Coque", "Acier")
-    bateau.replace_part("Coque", new_piece)
-
-    bateau.display_history()
-    
-    # # Afficher l'état du bateau après remplacement
-    # bateau.display_state()
-
-    # # Changer le matériau d'une pièce existante
-    # bateau.change_part("Mât", "Acier")
-    # bateau.display_state()
+    # Démarrer le menu interactif
+    menu_interactif(bateau)

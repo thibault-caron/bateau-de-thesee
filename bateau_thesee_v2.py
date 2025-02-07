@@ -18,10 +18,12 @@ class Ship(Part):
     def __init__(self, name):
         super().__init__(name, "N/A") 
         self.__parts = {}
+        self.history = []
 
     def add_part(self, part):
         """Ajouter une pièce au bateau."""
         self.__parts[part.name] = part
+        self.history.append(f"Ajout de la pièce: {part.name} ({part.material})")
 
     def display_state(self):
         """Afficher l'état du bateau avec la liste des pièces."""
@@ -35,6 +37,7 @@ class Ship(Part):
     def replace_part(self, part_name, new_part):
         """Remplacer une pièce existante par une nouvelle."""
         if part_name in self.__parts:
+            self.history.append(f"Remplacement de la pièce '{part_name}' par '{new_part.name}' ({new_part.material})")
             print(f"Remplacement de la pièce: {part_name}")
             self.__parts[part_name] = new_part
         else:
@@ -43,10 +46,21 @@ class Ship(Part):
     def change_part(self, part_name, new_material):
         """Changer le matériau d'une pièce existante."""
         if part_name in self.__parts:
-            print(f"Changement du matériau de la pièce '{part_name}' en '{new_material}'")
+            old_material = self.__parts[part_name].material
             self.__parts[part_name].change_material(new_material)
+            self.history.append(f"Changement du matériau de la pièce '{part_name}' de '{old_material}' à '{new_material}'")
+            print(f"Changement du matériau de '{part_name}' en '{new_material}'.")
         else:
             print(f"Aucune pièce trouvée avec le nom '{part_name}'")
+
+    def display_history(self):
+        """Afficher l'historique des modifications."""
+        if not self.history:
+            print("Aucune modification n'a été effectuée.")
+        else:
+            print("Historique des modifications:")
+            for record in self.history:
+                print(record)
 
 
 class RacingShip(Ship):
@@ -78,9 +92,11 @@ if __name__ == "__main__":
     bateau.display_state()
     bateau.display_speed()
     
-    # # Remplacer une pièce
-    # new_piece = Part("Coque", "Acier")
-    # bateau.replace_part("Coque", new_piece)
+    # Remplacer une pièce
+    new_piece = Part("Coque", "Acier")
+    bateau.replace_part("Coque", new_piece)
+
+    bateau.display_history()
     
     # # Afficher l'état du bateau après remplacement
     # bateau.display_state()

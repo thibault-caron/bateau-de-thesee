@@ -71,7 +71,7 @@ class RacingShip(Ship):
 
     def display_speed(self):
         """Afficher la vitesse maximale du RacingShip."""
-        print(f"Vitesse maximale du '{self.name}' : {self.max_speed} km/h")
+        print(f"Vitesse maximale du '{self.name}' : {self.max_speed} noeuds")
 
 
 def show_menu():
